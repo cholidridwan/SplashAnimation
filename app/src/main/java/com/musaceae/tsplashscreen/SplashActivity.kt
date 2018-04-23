@@ -7,7 +7,10 @@ import android.os.Bundle
 import android.os.Handler
 import kotlinx.android.synthetic.main.activity_splash.*
 import android.animation.ObjectAnimator
-
+import android.util.Log
+import android.widget.ImageView
+import android.widget.Switch
+import java.util.*
 
 
 class SplashActivity : AppCompatActivity() {
@@ -30,7 +33,10 @@ class SplashActivity : AppCompatActivity() {
 
         mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY)
 
-        ValueAnimator.ofFloat(600f, 300f).apply {
+        tiger.scaleX = 0.2f
+        tiger.scaleY = 0.2f
+
+        /*ValueAnimator.ofFloat(600f, 300f).apply {
             duration = 1000
             addUpdateListener {
                 tiger.y = it.animatedValue as Float
@@ -54,8 +60,6 @@ class SplashActivity : AppCompatActivity() {
             start()
         }
 
-        tiger.scaleX = 0.2f
-        tiger.scaleY = 0.2f
         ValueAnimator.ofFloat(0.2f, 1f).apply {
             duration = 1000
             startDelay = 1000
@@ -64,9 +68,33 @@ class SplashActivity : AppCompatActivity() {
                 tiger.scaleY = it.animatedValue as Float
             }
             start()
-        }
+        }*/
+
+        animate(tiger,"yPos", 600f, 300f, 0, 1000)
+        animate(tiger,"rotatePos", -180f, 0f, 1000, 1000)
+        animate(tiger,"scaleX", 0.2f, 1f, 1000, 1000)
+        animate(tiger,"scaleY", 0.2f, 1f, 1000, 1000)
 
     }
+
+    fun animate(obj: ImageView, type: String, posStart: Float, posFinish: Float, dly: Long, dur:Long){
+        Log.d("tes", "########################################################################")
+        ValueAnimator.ofFloat(posStart, posFinish).apply {
+            startDelay = dly
+            duration = dur
+            Log.d("tes", type)
+            addUpdateListener {
+                when(type){
+                    "yPos" -> tiger.y = it.animatedValue as Float
+                    "rotatePos" -> tiger.rotation = it.animatedValue as Float
+                    "scaleX" -> tiger.scaleX = it.animatedValue as Float
+                    "scaleY" -> tiger.scaleY = it.animatedValue as Float
+                }
+            }
+            start()
+        }
+    }
+
 
     public override fun onDestroy(){
         if(mDelayHandler != null) {
@@ -75,8 +103,5 @@ class SplashActivity : AppCompatActivity() {
 
         super.onDestroy()
     }
-
-
-
 
 }
