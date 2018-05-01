@@ -85,10 +85,10 @@ class SplashActivity : AppCompatActivity() {
             Log.d("tes", type)
             addUpdateListener {
                 when(type){
-                    "yPos" -> tiger.y = it.animatedValue as Float
-                    "rotatePos" -> tiger.rotation = it.animatedValue as Float
-                    "scaleX" -> tiger.scaleX = it.animatedValue as Float
-                    "scaleY" -> tiger.scaleY = it.animatedValue as Float
+                    "yPos" -> obj.y = it.animatedValue as Float
+                    "rotatePos" -> obj.rotation = it.animatedValue as Float
+                    "scaleX" -> obj.scaleX = it.animatedValue as Float
+                    "scaleY" -> obj.scaleY = it.animatedValue as Float
                 }
             }
             start()
